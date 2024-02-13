@@ -20,10 +20,28 @@ const FilmSection = styled.section`
 `
 
 const InputStyle = styled(StyledInputComponent)`
-  width: 30rem;
+  width: 29rem;
 
   margin-bottom: 1%;
 `;
+
+type ItemType = {
+    show: string | null,
+
+    _links: {
+        self: {
+            href: string;
+        };
+    };
+
+    image: {
+        original: string;
+    };
+
+    name: string;
+    id: number;
+    summary: string;
+}
 
 export default function FilmList() {
     const {data: {searchByName, currentPage}, operations: {setCurrentPage, setSearchByName}} = useSearchContext()
@@ -32,7 +50,7 @@ export default function FilmList() {
 
     useEffect(() => {
         if (data) {
-            const mappedData = data?.map((item) => (item.show ? item.show : item));
+            const mappedData = data?.map((item: ItemType) => (item.show ? item.show : item));
             setFilmArr(mappedData);
         }
     }, [data, searchByName]);
@@ -74,8 +92,8 @@ export default function FilmList() {
             <InputStyle onChange={onNameFound} value={searchByName}/>
             {paginatedItemsPrepared ? (
                 <FilmSection>
-                    {paginatedItemsPrepared?.map((item) => (
-                        <CardContainer key={item?.id} {...item}/>
+                    {paginatedItemsPrepared?.map((item: ItemType) => (
+                        <CardContainer key={item.id} {...item}/>
                     ))}</FilmSection>
             ) : (
                 <p>Loading...</p>

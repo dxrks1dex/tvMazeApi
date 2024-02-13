@@ -3,7 +3,7 @@ import {useSearchParams} from "next/navigation";
 import useTvShows from "@/hooks/fetch/fetch";
 import {styled} from "styled-components";
 import StarRating from "@/components/StarRating";
-import {useTranslation} from "react-i18next";
+import LanguageSwitcher from "@/utilits/Translations";
 
 const FilmInfo = styled.section`
   display: grid;
@@ -16,7 +16,6 @@ const FilmInfo = styled.section`
 
 const RightSideFilmInfo = styled.div`
   display: grid;
-  grid-template-rows: 1fr 1fr;
   grid-gap: 10px;
 `
 
@@ -24,6 +23,8 @@ const ImageStyle = styled.img`
   border-radius: 5px;
   width: 210px;
   height: 295px;
+
+  box-shadow: 4px 6px 15px 0px rgba(0,0,0,0.75);
 `
 
 const FilmName = styled.h1`
@@ -31,6 +32,10 @@ const FilmName = styled.h1`
   font-size: 25px;
 
   color: white;
+  
+  margin-top: 10px;
+  
+  width: 210px;
 `
 
 const TextStyle = styled.span`
@@ -40,14 +45,42 @@ const TextStyle = styled.span`
   line-height: 1.2;
 
   font-size: 20px;
+  
+  margin-top: 30px;
+`
+
+const StatusContainer = styled.div `
+    display: flex;
+`
+
+const Genre = styled.div`
+  display: grid;
+  width: 210px;
+  
+  background-color: #522546;
+  box-shadow: 0px 4px 8px rgba(74, 35, 68, 0.7);
+  
+  margin-top: 10px;
+
+  border-radius: 5px;
+  cursor: pointer;
+
+  font-size: 17px;
+  
+  &:hover {
+    transition: 0.4s;
+    color: #c59f97;
+    border: 0.1px solid #c59f97;
+
+    font-size: 20px;
+  }
 `
 
 const FilmPage = () => {
     const searchParams = useSearchParams()
     const id = searchParams.get('id');
-    const {t, i18n} = useTranslation();
 
-    const {data} = useTvShows({id})
+    const { data } = useTvShows({id})
 
     return (
         <>
@@ -65,12 +98,12 @@ const FilmPage = () => {
                     <div>
                         <TextStyle>Rating: </TextStyle>
                         <StarRating initialRating={data?.rating?.average}/>
-                        <TextStyle><p>Status: {data?.status}</p></TextStyle>
-                        <>{t('Завершён')}</>
+                        <TextStyle><StatusContainer>Status:<LanguageSwitcher status={data?.status}/></StatusContainer></TextStyle>
                     </div>
                 </RightSideFilmInfo>
+                <TextStyle>Genres: {data?.genres.map((item: string) => <Genre key={item}>{item}</Genre>)}</TextStyle>
             </FilmInfo>
-            <p>{JSON.stringify(data)}</p>
+            {/*<p>{JSON.stringify(data)}</p>*/}
         </>
     );
 };

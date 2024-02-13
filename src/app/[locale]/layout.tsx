@@ -4,6 +4,8 @@ import '@/common/reset.css';
 import styled from "styled-components";
 import {SearchContextWrapper} from "@/hooks/searchContext";
 import {ReactQueryProvider} from "@/hooks/fetch/ReactQueryProvider";
+import {NextIntlClientProvider} from "next-intl";
+import {Header} from "@/components/styleComponents/Header";
 
 const LayoutStyle = styled.body`
 
@@ -12,22 +14,27 @@ const LayoutStyle = styled.body`
   background: linear-gradient(to top right, #311D3F, #522546, #88304E, #E23E57);
 
 `
-export default function RootLayout({children}: {
-    children: React.ReactNode
+export default function RootLayout({
+                                         children,
+                                         params: {locale}
+                                     }: {
+    children: React.ReactNode;
+    params: {locale: string};
 }) {
-    // const [queryClient] = useState(() => new QueryClient());
-
     return (
-        <html>
+        <html lang={locale}>
         <LayoutStyle>
+            <Header/>
             <ReactQueryProvider>
                 <SearchContextWrapper>
+                    <NextIntlClientProvider locale={locale}>
                     <StyledComponentsRegistry>
                         {children}
                     </StyledComponentsRegistry>
+                    </NextIntlClientProvider>
                 </SearchContextWrapper>
             </ReactQueryProvider>
         </LayoutStyle>
         </html>
-    )
+    );
 }

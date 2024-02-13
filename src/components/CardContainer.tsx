@@ -86,7 +86,7 @@ export function CardContainer<T extends {
     return (
         <FilmComponentStyle>
             <div onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
-                <StyledLink href={`/show?id=${item?.id}`}>
+                <StyledLink href={`/en/show?id=${item?.id}`} locale={'en'}>
                     <FilmImage
                         src={item?.image?.original ?? 'https://i.pinimg.com/736x/6a/6d/11/6a6d1124cf69e5588588bc7e397598f6.jpg'}
                         alt="No image"/>
