@@ -1,4 +1,4 @@
-import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useMemo, useState} from "react";
+import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState} from "react";
 
 interface ISearchContext {
     data: {
@@ -18,6 +18,10 @@ export const SearchContextWrapper: FC<{ children: ReactNode }> = ({children}) =>
     const [searchByName, setSearchByName] = useState('')
     const [currentPage, setCurrentPage] = useState(0)
     const [id, setId] = useState(undefined)
+
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [searchByName])
 
     const context: ISearchContext = useMemo(() => ({
         data: {

@@ -8,20 +8,41 @@ import {isElementAtBottomOfPage} from "@/utilits/dom/isElementAtBottomOfPage";
 import {useScrollListener} from "@/hooks/dom/useScrollListener";
 import {StyledInputComponent} from "@/components/styleComponents/InputStyle";
 import useTvShows from "@/hooks/fetch/fetch";
+import {device} from "@/components/styleComponents/sizes";
+import {LoaderSpinner} from "@/components/LoaderSpinner";
 
 const ContentContainer = styled.div`
   margin-top: 20px;
   margin-left: 5%;
+
+  @media ${device.tablet} {
+    align-items: center;
+  }
 `
 
 const FilmSection = styled.section`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+
+  @media ${device.mobileS} {
+    grid-template-columns: repeat(3, 1fr);
+
+    grid-gap: 15px;
+  }
+  
+  @media ${device.tablet} {
+    grid-template-columns: repeat(5, 1fr);
+    
+    grid-gap: 25px;
+  }
+  
+  @media ${device.laptopL} {
+    grid-template-columns: repeat(5, 1fr);
+    
+    grid-gap: 30px;
+  }
 `
 
 const InputStyle = styled(StyledInputComponent)`
-  width: 29rem;
-
   margin-bottom: 1%;
 `;
 
@@ -51,9 +72,18 @@ export default function FilmList() {
     useEffect(() => {
         if (data) {
             const mappedData = data?.map((item: ItemType) => (item.show ? item.show : item));
-            setFilmArr(mappedData);
+
+            const uniqueData = mappedData.filter((item: ItemType, index: number, array: ItemType[]) =>
+                array.findIndex((el) => el.id === item.id) === index
+            )
+
+            if (uniqueData.every((item: ItemType, index: number) => item.id === filmArr[index]?.id)) {
+                return
+            }
+
+            setFilmArr(uniqueData)
         }
-    }, [data, searchByName]);
+    }, [data, searchByName, filmArr])
     console.log(data)
 
     const paginatedData = usePaginateData({
@@ -69,7 +99,6 @@ export default function FilmList() {
             setCurrentPage((prevPage) => prevPage + 1)
             console.log(currentPage)
         }
-        //add logic to scroll 10 elements (don't scroll)
     }, [setCurrentPage])
 
     useScrollListener(scrollHandler)
@@ -83,7 +112,7 @@ export default function FilmList() {
         setSearchByName(event.target.value);
     };
 
-    if (isLoading) return <>Loading...</>;
+    if (isLoading) return <LoaderSpinner/>;
 
     if (error) return <>An error has occurred: {(error as Error).message}</>;
 

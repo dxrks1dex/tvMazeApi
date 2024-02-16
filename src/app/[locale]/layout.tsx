@@ -11,8 +11,9 @@ const LayoutStyle = styled.body`
 
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-  background: linear-gradient(to top right, #311D3F, #522546, #88304E, #E23E57);
-
+  //background: linear-gradient(to top right, #311D3F, #522546, #88304E, #E23E57);
+  
+  background-color: #0b1622;
 `
 export default function RootLayout({
                                          children,

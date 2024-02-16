@@ -20,7 +20,7 @@ export const StyledInputComponent = styled(InputComponent)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-right: 10px;
 
-    @media ${device.mobileS} {
+  @media ${device.mobileS} {
     width: 10rem;
   }
   
@@ -32,7 +32,7 @@ export const StyledInputComponent = styled(InputComponent)`
     width: 40rem;
   }
 
-  @media ${device.laptop} {
+  @media ${device.laptopS} {
     width: 50rem;
   }
 

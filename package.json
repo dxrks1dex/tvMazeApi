@@ -17,6 +17,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^14.0.5",
+    "react-loader-spinner": "^6.1.6",
     "react-query": "^3.39.3",
     "styled-components": "^6.1.8"
   },
@@ -27,6 +28,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "prettier": "^3.0.3"
   }
 }
