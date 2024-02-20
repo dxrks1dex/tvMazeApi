@@ -1,23 +1,24 @@
 "use client";
 import { styled } from "styled-components";
 import Link from "next/link";
-import { useSearchContext } from "@/hooks/searchContext";
+import { useSearchContext } from "@/hooks/context/useSearchContext";
 import { ChangeEvent } from "react";
 import { StyledInputComponent } from "@/components/styleComponents/InputStyle";
+import { useLocale } from "next-intl";
 
 const InputGroup = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const InputStyle = styled(StyledInputComponent)`
+const InputStyled = styled(StyledInputComponent)`
   &:hover {
     transition: 0.4s;
     border: 0.1px solid #3480ea;
   }
 `;
 
-const ButtonStyle = styled.button`
+const ButtonStyled = styled.button`
   border-radius: 5px;
   height: 40px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,7 +39,7 @@ const ButtonStyle = styled.button`
   }
 `;
 
-const MainStyle = styled.div`
+const MainStyled = styled.div`
   display: grid;
   place-items: center;
   height: 100vh;
@@ -51,24 +52,26 @@ export function MainPage() {
     operations: { setSearchByName, setCurrentPage },
   } = useSearchContext();
 
+  const locale = useLocale();
+
   const onNameFound = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchByName(event.target.value);
     setCurrentPage(0);
   };
 
   return (
-    <MainStyle>
+    <MainStyled>
       <InputGroup>
-        <InputStyle onChange={onNameFound} value={searchByName} />
+        <InputStyled onChange={onNameFound} value={searchByName} />
         <Link
           href={{
-            pathname: `/en/films/q=${searchByName}`,
+            pathname: `/${locale}/films/q=${searchByName}`,
           }}
           locale={"en"}
         >
-          <ButtonStyle>Search</ButtonStyle>
+          <ButtonStyled>Search</ButtonStyled>
         </Link>
       </InputGroup>
-    </MainStyle>
+    </MainStyled>
   );
 }
