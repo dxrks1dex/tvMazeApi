@@ -216,6 +216,8 @@ const MobileDescription = styled.span`
   }
 `;
 
+const MAX_RATING = 10;
+
 const FilmPage = () => {
   const [overflowStyle, setOverflowStyle] = useState("hidden");
   const [isDetailedDescriptionVisible, setIsDetailedDescriptionVisible] =
@@ -244,7 +246,9 @@ const FilmPage = () => {
           </TextStyled>
           <div>
             <RatingMobile>
-              <TextStyled>Rating: {data?.rating?.average}/10</TextStyled>
+              <TextStyled>
+                Rating: {data?.rating?.average}/{MAX_RATING}
+              </TextStyled>
               <StarRating initialRating={data?.rating?.average} />
               <TextStyled>
                 <StatusContainer>
@@ -258,6 +262,7 @@ const FilmPage = () => {
         <RightSideFilmInfo>
           <div>
             <TextContainer overflowStyle={overflowStyle}>
+              {/*data?.summary has html tags*/}
               <TextStyled
                 dangerouslySetInnerHTML={{
                   __html: data?.summary ?? "",

@@ -1,5 +1,5 @@
-import {ReactNode, useState} from "react";
-import {styled} from "styled-components";
+import { ReactNode, useState } from "react";
+import { styled } from "styled-components";
 
 const Tooltip = styled.div`
   position: absolute;
@@ -13,25 +13,33 @@ const Tooltip = styled.div`
 `;
 
 interface Props {
-    description: string,
-    children: ReactNode
+  description: string;
+  children: ReactNode;
 }
 
-export const ToolTip = ({description, children}: Props) => {
-    const [isTooltipVisible, setTooltipVisible] = useState(false);
+export const ToolTip = ({ description, children }: Props) => {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
-    const handleMouseEnter = () => {
-        setTooltipVisible(true);
-    };
+  const handleMouseEnter = () => {
+    setIsTooltipVisible(true);
+  };
 
-    const handleMouseLeave = () => {
-        setTooltipVisible(false);
-    };
+  const handleMouseLeave = () => {
+    setIsTooltipVisible(false);
+  };
 
-    return <div style={{position: "relative"}}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}>
-        {children}
-        {isTooltipVisible && <Tooltip><p>{description}</p></Tooltip>}
+  return (
+    <div
+      style={{ position: "relative" }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+      {isTooltipVisible && (
+        <Tooltip>
+          <p>{description}</p>
+        </Tooltip>
+      )}
     </div>
-}
+  );
+};
