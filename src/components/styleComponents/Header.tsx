@@ -16,6 +16,10 @@ const HeaderStyled = styled.header<{ isScrolled: boolean }>`
   background-color: ${(props) =>
     props.isScrolled ? "rgba(187, 118, 73, 0)" : "#c83f3d"};
   transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c83f3d;
+  }
 `;
 
 const HeaderNavigationBar = styled.div`
