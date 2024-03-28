@@ -13,12 +13,12 @@ const fetchTvShows = async ({ searchByName, currentPage, id }: Props) => {
   }
   if (searchByName === "") {
     const response = await fetch(
-      `http://api.tvmaze.com/shows?page=${currentPage}`,
+      `https://api.tvmaze.com/shows?page=${currentPage}`,
     );
     return await response.json();
   } else {
     const response = await fetch(
-      `http://api.tvmaze.com/search/shows?q=${searchByName}`,
+      `https://api.tvmaze.com/search/shows?q=${searchByName}`,
     );
     return await response.json();
   }
