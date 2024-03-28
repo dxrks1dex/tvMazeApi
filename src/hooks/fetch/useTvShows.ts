@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 
 interface Props {
-  searchByName: string;
-  currentPage: number;
-  id: string | null;
+  searchByName?: string;
+  currentPage?: number;
+  id?: string | null;
 }
 
 const fetchTvShows = async ({ searchByName, currentPage, id }: Props) => {
