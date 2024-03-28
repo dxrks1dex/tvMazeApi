@@ -77,7 +77,7 @@ export default function FilmList() {
     data: { searchByName, currentPage },
     operations: { setCurrentPage, setSearchByName },
   } = useSearchContext();
-  const [filmArr, setFilmArr] = useState([]);
+  const [filmArr, setFilmArr] = useState<ItemType[]>([]);
   const { push } = useRouter();
   const { data, isLoading, error, isFetching } = useTvShows({
     searchByName,
